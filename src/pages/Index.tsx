@@ -7,28 +7,77 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [currentSection, setCurrentSection] = useState('home');
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const products = [
     {
       id: 1,
       name: 'Сарафан "Русская краса"',
       price: '15 900 ₽',
+      oldPrice: '18 900 ₽',
       image: '/img/4419efa2-15e9-43fb-9371-16609abd28a8.jpg',
-      category: 'Платья'
+      images: [
+        '/img/4419efa2-15e9-43fb-9371-16609abd28a8.jpg',
+        '/img/d1ba7e93-67ca-46a9-bcf8-34020806e690.jpg'
+      ],
+      category: 'Платья',
+      description: 'Роскошный сарафан в традиционном русском стиле с богатой золотой вышивкой. Изготовлен из натурального льна высшего качества с использованием старинных техник шитья.',
+      features: [
+        'Натуральный лен премиум класса',
+        'Ручная золотая вышивка',
+        'Традиционный русский крой',
+        'Регулируемые лямки',
+        'Подкладка из хлопка'
+      ],
+      sizes: ['XS', 'S', 'M', 'L', 'XL'],
+      care: 'Деликатная стирка при 30°C, сушить в горизонтальном положении, гладить с изнанки',
+      delivery: '2-3 дня по Москве, 5-7 дней по России'
     },
     {
       id: 2,
       name: 'Кокошник "Царевна"',
       price: '8 500 ₽',
+      oldPrice: '10 200 ₽',
       image: '/img/5e861313-6797-400c-9f45-364849f82814.jpg',
-      category: 'Аксессуары'
+      images: [
+        '/img/5e861313-6797-400c-9f45-364849f82814.jpg',
+        '/img/384e8455-17fe-4dc0-a6ba-c0e611d80750.jpg'
+      ],
+      category: 'Аксессуары',
+      description: 'Величественный кокошник "Царевна" с изысканной отделкой жемчугом и золотной нитью. Настоящее произведение искусства для особых случаев.',
+      features: [
+        'Натуральный жемчуг',
+        'Золотная вышивка',
+        'Бархатная основа',
+        'Регулируемый размер',
+        'Ручная работа мастеров'
+      ],
+      sizes: ['Универсальный'],
+      care: 'Только сухая чистка, хранить в специальной коробке',
+      delivery: '1-2 дня по Москве, 3-5 дней по России'
     },
     {
       id: 3,
       name: 'Матрёшка "Золотая"',
       price: '3 200 ₽',
+      oldPrice: '4 000 ₽',
       image: '/img/e0db6c26-8727-4a62-accd-3546742aa2ee.jpg',
-      category: 'Сувениры'
+      images: [
+        '/img/e0db6c26-8727-4a62-accd-3546742aa2ee.jpg',
+        '/img/abaf843f-4539-4f9b-8b9b-96ef4bcb0a0e.jpg'
+      ],
+      category: 'Сувениры',
+      description: 'Классическая русская матрёшка из липы с традиционной хохломской росписью. Набор из 7 кукол, расписанных вручную мастерами.',
+      features: [
+        'Липовое дерево',
+        'Хохломская роспись',
+        'Набор из 7 кукол',
+        'Ручная роспись',
+        'Лаковое покрытие'
+      ],
+      sizes: ['Стандартный набор'],
+      care: 'Протирать сухой мягкой тканью, избегать попадания влаги',
+      delivery: '1-2 дня по Москве, 3-4 дня по России'
     }
   ];
 
@@ -87,12 +136,31 @@ const Index = () => {
                         <h3 className="font-bold text-lg text-russian-brown mb-2">
                           {product.name}
                         </h3>
-                        <p className="text-2xl font-bold text-russian-red mb-4">
-                          {product.price}
-                        </p>
-                        <Button className="w-full bg-russian-brown hover:bg-amber-900 text-white">
-                          В корзину
-                        </Button>
+                        <div className="flex items-center gap-2 mb-4">
+                          <p className="text-2xl font-bold text-russian-red">
+                            {product.price}
+                          </p>
+                          {product.oldPrice && (
+                            <p className="text-lg text-gray-500 line-through">
+                              {product.oldPrice}
+                            </p>
+                          )}
+                        </div>
+                        <div className="space-y-2">
+                          <Button 
+                            onClick={() => {
+                              setSelectedProduct(product);
+                              setCurrentSection('product');
+                            }}
+                            variant="outline" 
+                            className="w-full border-russian-brown text-russian-brown hover:bg-russian-brown hover:text-white"
+                          >
+                            Подробнее
+                          </Button>
+                          <Button className="w-full bg-russian-brown hover:bg-amber-900 text-white">
+                            В корзину
+                          </Button>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -141,12 +209,31 @@ const Index = () => {
                       <h3 className="font-bold text-lg text-russian-brown mb-2">
                         {product.name}
                       </h3>
-                      <p className="text-xl font-bold text-russian-red mb-4">
-                        {product.price}
-                      </p>
-                      <Button className="w-full bg-russian-brown hover:bg-amber-900 text-white">
-                        В корзину
-                      </Button>
+                      <div className="flex items-center gap-2 mb-4">
+                        <p className="text-xl font-bold text-russian-red">
+                          {product.price}
+                        </p>
+                        {product.oldPrice && (
+                          <p className="text-sm text-gray-500 line-through">
+                            {product.oldPrice}
+                          </p>
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <Button 
+                          onClick={() => {
+                            setSelectedProduct(product);
+                            setCurrentSection('product');
+                          }}
+                          variant="outline" 
+                          className="w-full border-russian-brown text-russian-brown hover:bg-russian-brown hover:text-white"
+                        >
+                          Подробнее
+                        </Button>
+                        <Button className="w-full bg-russian-brown hover:bg-amber-900 text-white">
+                          В корзину
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -311,6 +398,209 @@ const Index = () => {
                 </CardContent>
               </Card>
             </div>
+          </div>
+        );
+
+      case 'product':
+        if (!selectedProduct) return null;
+        return (
+          <div className="space-y-8">
+            {/* Breadcrumbs */}
+            <div className="flex items-center gap-2 text-sm text-russian-brown">
+              <button 
+                onClick={() => setCurrentSection('home')}
+                className="hover:underline"
+              >
+                Главная
+              </button>
+              <Icon name="ChevronRight" size={16} />
+              <button 
+                onClick={() => setCurrentSection('catalog')}
+                className="hover:underline"
+              >
+                Каталог
+              </button>
+              <Icon name="ChevronRight" size={16} />
+              <span className="font-medium">{selectedProduct.name}</span>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-12">
+              {/* Product Images */}
+              <div className="space-y-4">
+                <div className="aspect-square rounded-2xl overflow-hidden border-2 border-russian-gold/20">
+                  <img
+                    src={selectedProduct.images[0]}
+                    alt={selectedProduct.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  {selectedProduct.images.slice(1).map((image, index) => (
+                    <div key={index} className="aspect-square rounded-lg overflow-hidden border border-russian-gold/20">
+                      <img
+                        src={image}
+                        alt={`${selectedProduct.name} ${index + 2}`}
+                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-300 cursor-pointer"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Product Details */}
+              <div className="space-y-6">
+                <div>
+                  <Badge className="mb-3 bg-russian-green text-white">
+                    {selectedProduct.category}
+                  </Badge>
+                  <h1 className="text-4xl font-decorative font-bold text-russian-brown mb-4">
+                    {selectedProduct.name}
+                  </h1>
+                  <div className="flex items-center gap-4 mb-6">
+                    <span className="text-3xl font-bold text-russian-red">
+                      {selectedProduct.price}
+                    </span>
+                    {selectedProduct.oldPrice && (
+                      <span className="text-xl text-gray-500 line-through">
+                        {selectedProduct.oldPrice}
+                      </span>
+                    )}
+                    {selectedProduct.oldPrice && (
+                      <Badge variant="destructive" className="bg-red-500">
+                        Скидка
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-russian-brown mb-3">Описание</h3>
+                  <p className="text-lg leading-relaxed text-gray-700">
+                    {selectedProduct.description}
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-russian-brown mb-3">Особенности</h3>
+                  <ul className="space-y-2">
+                    {selectedProduct.features.map((feature, index) => (
+                      <li key={index} className="flex items-center gap-3">
+                        <Icon name="Check" size={20} className="text-russian-green" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {selectedProduct.sizes.length > 1 && (
+                  <div>
+                    <h3 className="text-xl font-bold text-russian-brown mb-3">Размер</h3>
+                    <div className="flex gap-2 flex-wrap">
+                      {selectedProduct.sizes.map((size) => (
+                        <Button
+                          key={size}
+                          variant="outline"
+                          className="border-russian-brown text-russian-brown hover:bg-russian-brown hover:text-white"
+                        >
+                          {size}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <Button size="lg" className="w-full bg-russian-brown hover:bg-amber-900 text-white text-lg py-6">
+                    <Icon name="ShoppingCart" size={24} className="mr-2" />
+                    Добавить в корзину
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="w-full border-russian-green text-russian-green hover:bg-russian-green hover:text-white text-lg py-6"
+                  >
+                    <Icon name="Heart" size={24} className="mr-2" />
+                    В избранное
+                  </Button>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-gray-200">
+                  <Card className="border-russian-gold/20">
+                    <CardHeader>
+                      <CardTitle className="text-russian-brown flex items-center gap-2">
+                        <Icon name="Truck" size={20} />
+                        Доставка
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm">{selectedProduct.delivery}</p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="border-russian-gold/20">
+                    <CardHeader>
+                      <CardTitle className="text-russian-brown flex items-center gap-2">
+                        <Icon name="Shield" size={20} />
+                        Уход
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm">{selectedProduct.care}</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
+
+            {/* Related Products */}
+            <section className="pt-12 border-t border-gray-200">
+              <h2 className="text-3xl font-decorative font-bold text-russian-brown text-center mb-8">
+                🌟 Похожие товары
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {products
+                  .filter(p => p.id !== selectedProduct.id)
+                  .slice(0, 3)
+                  .map((product) => (
+                    <Card key={product.id} className="hover:shadow-lg transition-all duration-300 hover:scale-105 border-2 border-russian-gold/20">
+                      <CardContent className="p-0">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-48 object-cover rounded-t-lg"
+                        />
+                        <div className="p-4">
+                          <Badge className="mb-2 bg-russian-green text-white">
+                            {product.category}
+                          </Badge>
+                          <h3 className="font-bold text-lg text-russian-brown mb-2">
+                            {product.name}
+                          </h3>
+                          <div className="flex items-center gap-2 mb-4">
+                            <p className="text-xl font-bold text-russian-red">
+                              {product.price}
+                            </p>
+                            {product.oldPrice && (
+                              <p className="text-sm text-gray-500 line-through">
+                                {product.oldPrice}
+                              </p>
+                            )}
+                          </div>
+                          <Button 
+                            onClick={() => {
+                              setSelectedProduct(product);
+                              window.scrollTo(0, 0);
+                            }}
+                            className="w-full bg-russian-brown hover:bg-amber-900 text-white"
+                          >
+                            Смотреть
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+              </div>
+            </section>
           </div>
         );
 
